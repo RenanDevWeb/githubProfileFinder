@@ -1,37 +1,52 @@
 import React, {useState}from 'react';
 import {BoxProfile, ImagemPerfil, BoxInformacoes, Table,TextProfile, InputSearch, ButtonSucces,
-   ContainerSearch, ContainerRepositories, CardRepositories, Card} from './styled'
-import {Api} from '../../api/api'
+   ContainerSearch, ContainerRepositories, HeaderInformation, BoxInformacoesProfile,BoxLocations, CardRepositories, Card} from './styled'
+   import {FaSearch, FaTwitter,FaLink} from 'react-icons/fa'
+   import {MdLocationOn} from 'react-icons/md'
+
+   import {Api} from '../../api/api'
 
 
 function Profile() {
   const [userInformations, setUserInformations] = useState('')
   const [input, setInput] = useState('')
+  const [imagemPerfil, setImagemPerfil] = useState('')
   const [gitUser, setGitUser] = useState('')
   const [repositories,setRepositories] = useState([])
 
-  async function getRepositories(gitUser){
-         await Api.get(`/users/${gitUser}/repos`)
-           .then((response) => setRepositories(response.data))
-           .catch(err => console.log(err))
+  function handleInput(e){
+    e.preventDefault();
+    let inputValue  = e.target.value
+    setInput(inputValue)
+  }
+
+
+  async function getRepositories(){
+      try {
+        let gitUser =  input
+        const {data} = await Api.get(`/users/${gitUser}/repos`)
+        setRepositories(data)
+      } catch (error) {
+        
+      }       
   }   
 
 
-
-  function handleInput(e){
-    e.preventDefault();
-    setInput(e.target.value)
+  async function search(input){
+     await setGitUser()
+     await getDados()
+     await getRepositories()
   }
 
-  function search(){
-     setGitUser(input)
-     getDados(input)
-     getRepositories(input)
-  }
-
-  async function getDados(gituser){
-    await Api.get(`users/${gitUser}` ) 
-    .then(response => setUserInformations(response.data))
+  async function getDados(){
+    try {
+      let gitUser =  input
+      setImagemPerfil(input)
+      const {data} = await Api.get(`users/${gitUser}`)
+      setUserInformations(data)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
 
@@ -39,35 +54,47 @@ function Profile() {
   return (
   <>
   <ContainerSearch >
-    <InputSearch type="text" onChange={(e) => handleInput(e)} />
+    <FaSearch className="icon" />
+    <InputSearch type="text" onChange={(e) => handleInput(e)} placeholder="search for a user"/>
     <ButtonSucces onClick={() => search()}>Buscar</ButtonSucces>
   </ContainerSearch>
     <BoxProfile>
-       <ImagemPerfil src={`https://github.com/${gitUser}.png`} alt="imagem Perfil"/>
+       <ImagemPerfil src={`https://github.com/${imagemPerfil}.png`} alt=""/>
        <BoxInformacoes>
+              <HeaderInformation>
                  <h1>{userInformations.login}</h1>
-                 <TextProfile>Name: {userInformations.login}</TextProfile>
-                 <TextProfile>Company: {userInformations.company}</TextProfile>
-                 <TextProfile>Blog: <a href={userInformations.blog}> {userInformations.blog}</a></TextProfile>
-              
-           <Table>
+                  <h2>{userInformations.created_at}</h2>
+              </HeaderInformation>
+                 <h2>{userInformations.bio}</h2>
+                  <BoxInformacoesProfile>
+                  <Table>
              <thead>
                  <tr>
+                  <td>Repositories</td>
                    <td>Followers</td>
                    <td>Following</td>
-                   <td>Gist</td>
-                   <td>Repositories</td>
                  </tr>
                 <tbody>
                   <tr>
+                    <td>{userInformations.public_repos}</td>
                     <td>{userInformations.followers}</td>
                     <td>{userInformations.following}</td>
-                    <td>{userInformations.public_gists}</td>
-                    <td>{userInformations.public_repos}</td>
                   </tr>
                 </tbody>
              </thead>
           </Table>
+                  </BoxInformacoesProfile>
+                 
+                 <BoxLocations>
+                   <div>
+                   <TextProfile> <MdLocationOn /> {userInformations.location}</TextProfile>
+                   <TextProfile> <FaLink /> {userInformations.company}</TextProfile>
+                   <TextProfile> <FaTwitter/> {userInformations.twitter_username}</TextProfile>
+                   </div>
+                </BoxLocations>
+                 
+              
+           
 
        </BoxInformacoes>
     </BoxProfile>

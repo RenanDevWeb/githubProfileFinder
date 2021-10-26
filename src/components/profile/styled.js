@@ -2,14 +2,20 @@ import styled from 'styled-components';
 
 export const BoxProfile = styled.div`
   display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #22272E;
+  margin: 0 auto;
+  width: 52%;
+  border-radius: 10px;
+  margin-top: 40px;
 `;
 
 export const ImagemPerfil = styled.img`
-    width: 220px;
-    height: 240px;
-    margin: 8px;
-    -webkit-box-shadow: -1px 3px 7px 10px rgba(0,0,0,0.51); 
- box-shadow: -1px 3px 7px 10px rgba(0,0,0,0.51);
+    width: 160px;
+    height: 160px;
+    margin-left: 20px;
+    border-radius: 50%;
 `; 
 
 export const BoxInformacoes = styled.div`
@@ -17,37 +23,70 @@ export const BoxInformacoes = styled.div`
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-   
-    h4{
-      margin:  6px;
+    margin-left: 40px;
+    h2{
+      color:#fff;
+      font-size: 12px;
+      
     }
-    ul{
-      list-style: none;
-      display: flex;
-      justify-content: flex-start;
-      align-items: flex-start;
-        li{
-          margin: 0;
-          display: inline-block;
-          padding-right: 5px;
-        }
-    } 
 `; 
+
+export const HeaderInformation = styled.div`
+    display: flex;
+    
+    justify-content: space-between;
+    align-items: center ;
+    h1{
+      color:#fff;
+    }
+    h2{
+      color:#fff;
+      font-size: 12px;
+      margin-left: 20px;
+    }
+`;  
+export const BoxInformacoesProfile = styled.div`
+     background-color: #1C1C1C;
+     border-radius: 10px;
+     padding: 10px;
+     margin: 10px 0;
+
+
+
+`;
 
 export const Table = styled.table`
    display: flex;
    flex-direction: column;
    padding: 6px;
+   color:#fff;
 
     td{
       padding: 8px;
-      text-align: start;
+      text-align: center;
+      font-weight: bold;
+      font-size: 18px;
     }
 `;
 
-export const TextProfile = styled.h4`
-   font-size: 16px;
 
+export const  BoxLocations = styled.div`
+   display: flex;
+   flex-direction: column;
+   justify-content: flex-start;
+   align-items: flex-start;
+
+   div{
+     display: flex;
+     justify-content: flex-start;
+     align-items: flex-start;
+   }
+`;
+
+export const TextProfile = styled.h4`
+   font-size: 14px;
+   color: #fff;
+   margin-right: 6px;
    a{
      cursor: pointer;
      color: #000;
@@ -56,14 +95,31 @@ export const TextProfile = styled.h4`
 `;
 
 export const ContainerSearch = styled.div`
+    background-color: #22272E;
     display: flex;
-    align-items:flex-start;
-    justify-content: flex-start;
+    align-items:center;
+    justify-content: flex-end;
     margin-bottom: 4px;
+    width: 50%;
+    margin: 0 auto;
+    padding: 14px;
+    border-radius: 10px;
 `;
 
 export const InputSearch = styled.input`
-    width: 90%;
+    width: 100%;
+    padding: 8px;
+    border: 0 solid #22272E;
+    outline: 0 !important;
+    outline-width: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin-left: 10px;
+    &:focus{
+      outline: none;
+      border:0;
+    }
 `;
 
 export const ButtonSucces = styled.button`
@@ -71,9 +127,15 @@ export const ButtonSucces = styled.button`
       color: #fff;
       width: 80px;
       font-size: 16px;
+      padding: 8px;
       border-radius: 4px;
       border: none;
       margin-left: 8px;
+      background-color: #347D39;
+      &:hover{
+        background-color: #fff;
+        color:#347D39;
+      }
       `; 
 export const ContainerRepositories = styled.div`
 display: flex;

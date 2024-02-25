@@ -27,12 +27,11 @@ export default function Profile() {
  async function getDataFromUser(){
   try {
      let gitUser = input
-     console.log(gitUser);
      setImagemPerfil(input)
      const {data} = await Api.get(`/users/${gitUser}`)
      setUserInformations(data)
   } catch (error) {
-    console.log(error);
+    throw new Error
   }
  }
  
@@ -41,10 +40,9 @@ export default function Profile() {
   try {
     let gitUser = input
     const {data} = await Api.get(`users/${gitUser}/repos`)
-    console.log(data);
     setRepositories(data) 
   } catch (error) {
-    console.log(error);
+    throw new Error
   }
   
  }
